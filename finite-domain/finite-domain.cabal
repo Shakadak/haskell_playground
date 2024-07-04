@@ -26,6 +26,7 @@ source-repository head
 library
   exposed-modules:
       FD
+      FDEx
   other-modules:
       Paths_finite_domain
   autogen-modules:

@@ -1,8 +1,8 @@
 module Sudoku (Puzzle, printSudoku, displayPuzzle, sudoku) where
 
-import Control.Monad
 import Data.List (transpose)
-import FD
+-- import FD
+import FDEx
 
 type Puzzle = [Int]
 
@@ -20,10 +20,10 @@ chunk n xs = ys : chunk n zs where
 sudoku :: Puzzle -> [Puzzle]
 sudoku puzzle = runFD $ do
     vars <- newVars 81 [1..9]
-    zipWithM_ (\x n -> when (n > 0) (x `hasValue` n)) vars puzzle
-    mapM_ allDifferent (rows vars)
-    mapM_ allDifferent (columns vars)
-    mapM_ allDifferent (boxes vars)
+    zipWithM_' (\x n -> whenM (n > 0) (x `hasValue` n)) vars puzzle
+    mapM_' allDifferent (rows vars)
+    mapM_' allDifferent (columns vars)
+    mapM_' allDifferent (boxes vars)
     labelling vars
 
 rows, columns, boxes :: [a] -> [[a]]

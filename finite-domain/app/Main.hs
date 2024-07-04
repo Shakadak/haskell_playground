@@ -1,6 +1,7 @@
 module Main (main) where
 
-import FD
+-- import FD
+import FDEx
 import Control.Monad
 import Sudoku
 
@@ -22,7 +23,8 @@ test = do
     labelling [x, y]
 
 runSudoku :: IO ()
-runSudoku = printSudoku testSudoku_s15c
+runSudoku = printSudoku testSudoku
+-- runSudoku = printSudoku testSudoku_s15c
 
 
 testSudoku :: Puzzle
