@@ -94,6 +94,10 @@ mapM_' :: Monad m => (a -> m b) -> [a] -> m ()
 mapM_' _ [] = pure ()
 mapM_' f (x : xs) = (f x) >>= \_ -> mapM_' f xs
 
+mapM' :: Monad m => (a -> m b) -> [a] -> m [b]
+mapM' _ [] = pure []
+mapM' f (x : xs) = (f x) >>= \y -> (mapM' f xs) >>= \ys -> pure (y : ys)
+
 whenM :: Applicative f => Bool -> f () -> f ()
 whenM True m = m
 whenM False _ = pure ()
@@ -209,7 +213,7 @@ different = addBinaryConstraint $ \x y -> do
 -- Constrain a list of variables to all have different values.
 allDifferent :: [FDVar s] -> FD s ()
 allDifferent (x:xs) = do
-    mapM_ (different x) xs
+    mapM_' (different x) xs
     allDifferent xs
 allDifferent _ = return ()
 
@@ -228,7 +232,7 @@ lessThan = addBinaryConstraint $ \x y -> do
 
 -- Label variables using a depth-first left-to-right search.
 labelling :: [FDVar s] -> FD s [Int]
-labelling = mapM label where
+labelling = mapM' label where
     label var = do
         vals <- lookup var
         val <- FD . lift $ IntSet.toList vals

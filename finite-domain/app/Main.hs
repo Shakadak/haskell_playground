@@ -9,7 +9,9 @@ main :: IO ()
 -- main = print runTest
 main = do
     putStrLn "Start"
-    runSudoku
+    -- printSudoku testSudokuKindaMid
+    printSudoku testSudokuDMOverton
+    -- printSudoku testSudoku_s15c
 
 runTest :: [[Int]]
 runTest = runFD test
@@ -22,13 +24,9 @@ test = do
     x `hasValue` 2
     labelling [x, y]
 
-runSudoku :: IO ()
-runSudoku = printSudoku testSudoku
--- runSudoku = printSudoku testSudoku_s15c
 
-
-testSudoku :: Puzzle
-testSudoku = [
+testSudokuDMOverton :: Puzzle
+testSudokuDMOverton = [
     0, 0, 0, 0, 8, 0, 0, 0, 0,
     0, 0, 0, 1, 0, 6, 5, 0, 7,
     4, 0, 2, 7, 0, 0, 0, 0, 0,

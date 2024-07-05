@@ -1,4 +1,4 @@
-module Sudoku (Puzzle, printSudoku, displayPuzzle, sudoku) where
+module Sudoku (Puzzle, printSudoku, displayPuzzle, sudoku, chunk, rows, columns, boxes) where
 
 import Data.List (transpose)
 -- import FD
